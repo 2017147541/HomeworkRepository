@@ -1,0 +1,154 @@
+body {
+  max-width: 1020px;
+  margin: auto;
+}
+
+h1 {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 32px;
+  margin: 70px 0;
+  cursor: default;
+}
+
+div.links {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: start;
+}
+
+@media (max-width: 800px) {
+  div.links {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  div.links {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+div.links a {
+  text-decoration: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 4px;
+  color: black;
+}
+
+div.links a.signup, div.links a.login, div.links a.home {
+  border-bottom: 3px solid aqua;
+  border-top: 3px solid aqua;
+}
+
+@keyframes slideRightIn {
+  from {
+    transform: translateX(1000%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+h1 {
+  animation-duration: 2s;
+  animation-name: slideRightIn;
+}
+
+h4 {
+  border-bottom: 0.7px solid black;
+}
+
+div.main {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+div.main div.container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+div.main div.container div.item-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 10px;
+}
+
+div.main div.container div.item-wrapper div.item-box {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  border: 0.5px solid black;
+
+  height: 300px;
+  flex: 0 0 22%;
+}
+
+@media (max-width: 800px) {
+  div.main div.container div.item-wrapper div.item-box {
+    flex: 0 0 45%;
+  }
+}
+
+@media (max-width: 480px) {
+  div.main div.container div.item-wrapper div.item-box {
+    flex: 0 0 90%;
+  }
+}
+
+
+div.main div.container, div.main div.about {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+
+form div button {
+  width: 100px;
+  height: 50px;
+  cursor: pointer;
+}
+
+form div button.signup, form div button.login {
+  background-color: aquamarine;
+}
+
+form div button.cancel {
+  background-color: grey;
+}
+
+div.item-wrapper {
+  position: relative;
+  width: 300px;
+  height: 400px;
+  flex: 0 0 40%;
+}
+
+div.item-description {
+  display: none;
+  position: absolute;
+  background-color: rgba(0, 0, 0, .7);
+  width: 100%;
+  height: 100%;
+  color: white;
+  text-align: center;
+  font-size: 20px;
+}
+
+div.items {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}

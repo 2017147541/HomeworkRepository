@@ -1,0 +1,165 @@
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <link rel = "stylesheet" type = "text/css" href = "main.css"/>
+    <title>Home</title>
+    <script>
+      async function makeRequest() {
+        await fetch("product.json")
+          .then(checkStatus)
+          .then(res => res.json())
+          .then(res => res.forEach(addDocument))
+      }
+
+      function checkStatus(res) {
+        if (res.ok) {
+          return res
+        } else {
+          throw Error("Error in request")
+        }
+      }
+
+      function addDocument(item) {
+        const container = document.getElementsByClassName("items")[0]
+
+        const itemWrapper = document.createElement("div")
+        itemWrapper.setAttribute("class", "item-wrapper")
+
+        const itemImg = document.createElement("img")
+        itemImg.setAttribute("src", item.image)
+        itemImg.setAttribute("id", item.id)
+        itemImg.setAttribute("width", "300px")
+        itemImg.setAttribute("height", "400px")
+        itemImg.setAttribute("alt", item.keyword)
+        itemImg.addEventListener("click", handleClickItem)
+
+        const description = document.createElement("div")
+        description.setAttribute("id", "description-" + item.id)
+        description.setAttribute("class", "item-description")
+        description.innerHTML = '가격: ' + item.price + '\n설명: ' + item.description
+
+        itemWrapper.appendChild(itemImg)
+        itemWrapper.appendChild(description)
+        container.appendChild(itemWrapper)
+      }
+
+      function handleClickItem(e) {
+        console.log(e.target.id)
+        const description = document.getElementById("description-"+e.target.id)
+        description.setAttribute("style", "display: block;")
+        console.log(description)
+      }
+    </script>
+    <script>
+      window.onscroll = () => {
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+          const keyword = document.getElementById("keyword").value
+          const category = document.getElementById("category").value
+          const sort = document.getElementById("sort").value
+
+          if (!keyword && category === 'all' && sort === 'none') {
+            // fetch more
+            fetch("product.json")
+            .then(checkStatus)
+            .then(res => res.json())
+            .then(res => res.forEach(addDocument))
+          }
+        }
+      }
+    </script>
+    <script>
+      function removeDocument() {
+        const container = document.getElementsByClassName("items")[0]
+        const itemWrappers = document.querySelectorAll("div.item-wrapper")
+
+        itemWrappers.forEach(itemWrapper => container.removeChild(itemWrapper))
+      }
+
+      async function handleSubmitInput() {
+        const keyword = document.getElementById("keyword").value
+        const category = document.getElementById("category").value
+        const sort = document.getElementById("sort").value
+        
+        removeDocument()
+
+        await fetch("product.json")
+          .then(checkStatus)
+          .then(res => res.json())
+          .then(res => {
+            return res.filter(r => {
+              return r.description.includes(keyword)
+            })
+          })
+          .then(res => {
+            return res.filter(r => {
+              if (category !== "all") {
+                return r.category === category
+              } else {
+                return true
+              }
+            })
+          })
+          .then(res => {
+            if (sort === "descent") res.sort((a, b) => b.price - a.price)
+            else if (sort === "ascent") res.sort((a, b) => a.price - b.price)
+
+            return res
+          })
+          .then(res => res.forEach(addDocument))
+      }
+    </script>
+  </head>
+  <body onload="makeRequest()">
+    <h1>안녕하세요. 마켓컬리입니다.</h1>
+    <div class="links">
+      <a class="home" href="index.html">
+        메인페이지
+      </a>
+      <a href="login.html">
+        로그인
+      </a>
+      <a href="signup.html">
+        회원가입
+      </a>
+    </div>
+      
+    <hr/>
+      
+    <div class="main">
+      <div class="container">
+        <h4>HTML5</h4>
+        <div>
+          <div class="search">
+            <form id="myForm">
+              Keyword: <input name="keyword" type="search" id="keyword"/><br/>
+              Category: 
+              <select name="category" id="category">
+                <option value="all">all</option>
+                <option value="html">html</option>
+                <option value="css">css</option>
+                <option value="java">java</option>
+              </select><br/>
+              Sort: 
+              <select name="sort" id="sort">
+                <option value="none">none</option>
+                <option value="descent">descent</option>
+                <option value="abscent">abscent</option>
+              </select>
+              <br/>
+              <button type="button" onclick="handleSubmitInput()">submit</button>
+            </form>
+
+          </div>
+          <div class="items"></div>
+        </div>
+    </div>
+
+      <div class="about">
+        <h4>마켓컬리 소개</h4>
+        <p class="description">
+          여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 여기는 마켓컬리 
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
